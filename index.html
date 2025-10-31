@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="utf-8"><title>Bandwidth Calc</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font:13px system-ui;background:#f8f9fa;color:#212529;padding:1rem}
+.c{max-width:1000px;margin:auto;display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.d{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 4px 12px #0001;border:1px solid #dee2e6}
+h2{background:#0066cc;color:#fff;padding:.75rem 1rem;font:600 1rem/1 system-ui;text-align:center}
+table{width:100%;border-collapse:collapse}
+td{padding:.5rem .75rem;border-bottom:1px solid #eee}
+label{display:flex;align-items:center;gap:.5rem;cursor:pointer;font-size:.95rem}
+input[type=radio]{accent-color:#0066cc;transform:scale(1.1)}
+input[type=number]{width:85px;padding:.4rem .6rem;border:1px solid #ccc;border-radius:8px;font:400 .95rem/1 monospace;text-align:right;background:#fff}
+input[type=number]:focus{border-color:#0066cc;outline:none;box-shadow:0 0 0 3px #0066cc33}
+.v{font:600 .95rem/1 'JetBrains Mono',monospace;color:#0066cc;min-width:85px;text-align:right}
+.u{font-size:.85rem;color:#555;flex:1}
+.i{display:none}
+.active .i{display:inline-block}
+.b{grid-column:1/-1;text-align:center;margin-top:.5rem}
+button{padding:.6rem 1.5rem;margin:0 .5rem;border:none;border-radius:8px;background:#0066cc;color:#fff;font-weight:600;cursor:pointer;transition:.2s}
+button:hover{background:#0052a3;transform:translateY(-1px)}
+@media(prefers-color-scheme:dark){
+  body{background:#121212;color:#e9ecef}
+  .d{background:#1e1e1e;border-color:#333}
+  input[type=number]{background:#2d2d2d;color:#e9ecef;border-color:#444}
+  .u{color:#aaa}
+}
+</style>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@600&display=swap" rel="stylesheet">
+</head><body>
+
+<div class="c">
+
+<div class="d"><h2>DATA</h2><table id="data"><tbody>
+<tr data-u="B"><td><label><input type="radio" name="data" value="B"><span class="v" id="vB"></span><span class="u">B bytes</span><span class="i"><input type="number" step="any"></span></label></td></tr>
+<tr data-u="KB"><td><label><input type="radio" name="data" value="KB"><span class="v" id="vKB"></span><span class="u">KB kilobytes</span><span class="i"><input type="number" step="any"></span></label></td></tr>
+<tr data-u="MB"><td><label><input type="radio" name="data" value="MB"><span class="v" id="vMB"></span><span class="u">MB megabytes</span><span class="i"><input type="number" step="any"></span></label></td></tr>
+<tr data-u="GB"><td><label><input type="radio" name="data" value="GB"><span class="v" id="vGB"></span><span class="u">GB gigabytes</span><span class="i"><input type="number" step="any"></span></label></td></tr>
+<tr data-u="TB"><td><label><input type="radio" name="data" value="TB"><span class="v" id="vTB"></span><span class="u">TB terabytes</span><span class="i"><input type="number" step="any"></span></label></td></tr>
+<tr data-u="b"><td><label><input type="radio" name="data" value="b"><span class="v" id="vb"></span><span class="u">b bits</span><span class="i"><input type="number" step="any"></span></label></td></tr>
+<tr data-u="Kb"><td><label><input type="radio" name="data" value="Kb"><span class="v" id="vKb"></span><span class="u">Kb kilobits</span><span class="i"><input type="number" step="any"></span></label></td></tr>
+<tr data-u="Mb"><td><label><input type="radio" name="data" value="Mb"><span class="v" id="vMb"></span><span class="u">Mb megabits</span><span class="i"><input type="number" step="any"></span></label></td></tr>
+<tr data-u="Gb"><td><label><input type="radio" name="data" value="Gb"><span class="v" id="vGb"></span><span class="u">Gb gigabits</span><span class="i"><input type="number" step="any"></span></label></td></tr>
+<tr data-u="Tb"><td><label><input type="radio" name="data" value="Tb"><span class="v" id="vTb"></span><span class="u">Tb terabits</span><span class="i"><input type="number" step="any"></span></label></td></tr>
+</tbody></table></div>
+
+<div class="d"><h2>SPEED</h2><table id="speed"><tbody>
+<tr data-u="bps"><td><label><input type="radio" name="speed" value="bps"><span class="v" id="vbps"></span><span class="u">bps bits per second</span><span class="i"><input type="number" step="any"></span></label></td></tr>
+<tr data-u="Kbps"><td><label><input type="radio" name="speed" value="Kbps"><span class="v" id="vKbps"></span><span class="u">Kbps kilobits per second</span><span class="i"><input type="number" step="any"></span></label></td></tr>
+<tr data-u="Mbps"><td><label><input type="radio" name="speed" value="Mbps"><span class="v" id="vMbps"></span><span class="u">Mbps megabits per second</span><span class="i"><input type="number" step="any"></span></label></td></tr>
+<tr data-u="Gbps"><td><label><input type="radio" name="speed" value="Gbps"><span class="v" id="vGbps"></span><span class="u">Gbps gigabits per second</span><span class="i"><input type="number" step="any"></span></label></td></tr>
+<tr data-u="Bps"><td><label><input type="radio" name="speed" value="Bps"><span class="v" id="vBps"></span><span class="u">Bps bytes per second</span><span class="i"><input type="number" step="any"></span></label></td></tr>
+<tr data-u="KBps"><td><label><input type="radio" name="speed" value="KBps"><span class="v" id="vKBps"></span><span class="u">KBps kilobytes per second</span><span class="i"><input type="number" step="any"></span></label></td></tr>
+<tr data-u="MBps"><td><label><input type="radio" name="speed" value="MBps"><span class="v" id="vMBps"></span><span class="u">MBps megabytes per second</span><span class="i"><input type="number" step="any"></span></label></td></tr>
+<tr data-u="TBps"><td><label><input type="radio" name="speed" value="TBps"><span class="v" id="vTBps"></span><span class="u">TBps terabytes per second</span><span class="i"><input type="number" step="any"></span></label></td></tr>
+<tr data-u="T1"><td><label><input type="radio" name="speed" value="T1"><span class="v" id="vT1"></span><span class="u">T1 (1.544 Mbps)</span><span class="i"><input type="number" step="any"></span></label></td></tr>
+<tr data-u="e10"><td><label><input type="radio" name="speed" value="e10"><span class="v" id="ve10"></span><span class="u">10Mbps ethernet</span><span class="i"><input type="number" step="any"></span></label></td></tr>
+<tr data-u="e100"><td><label><input type="radio" name="speed" value="e100"><span class="v" id="ve100"></span><span class="u">100Mbps ethernet</span><span class="i"><input type="number" step="any"></span></label></td></tr>
+<tr data-u="gige"><td><label><input type="radio" name="speed" value="gige"><span class="v" id="vgige"></span><span class="u">1Gbps ethernet</span><span class="i"><input type="number" step="any"></span></label></td></tr>
+</tbody></table></div>
+
+<div class="d"><h2>TIME</h2><table id="time"><tbody>
+<tr data-u="ns"><td><label><input type="radio" name="time" value="ns"><span class="v" id="vns"></span><span class="u">ns nanoseconds</span><span class="i"><input type="number" step="any"></span></label></td></tr>
+<tr data-u="ms"><td><label><input type="radio" name="time" value="ms"><span class="v" id="vms"></span><span class="u">ms milliseconds</span><span class="i"><input type="number" step="any"></span></label></td></tr>
+<tr data-u="s"><td><label><input type="radio" name="time" value="s"><span class="v" id="vs"></span><span class="u">s seconds</span><span class="i"><input type="number" step="any"></span></label></td></tr>
+<tr data-u="m"><td><label><input type="radio" name="time" value="m"><span class="v" id="vm"></span><span class="u">m minutes</span><span class="i"><input type="number" step="any"></span></label></td></tr>
+<tr data-u="h"><td><label><input type="radio" name="time" value="h"><span class="v" id="vh"></span><span class="u">h hours</span><span class="i"><input type="number" step="any"></span></label></td></tr>
+<tr data-u="d"><td><label><input type="radio" name="time" value="d"><span class="v" id="vd"></span><span class="u">d days</span><span class="i"><input type="number" step="any"></span></label></td></tr>
+<tr data-u="w"><td><label><input type="radio" name="time" value="w"><span class="v" id="vw"></span><span class="u">w weeks</span><span class="i"><input type="number" step="any"></span></label></td></tr>
+<tr data-u="y"><td><label><input type="radio" name="time" value="y"><span class="v" id="vy"></span><span class="u">y years</span><span class="i"><input type="number" step="any"></span></label></td></tr>
+</tbody></table></div>
+
+<div class="b"><button id="r">Reset</button></div>
+
+</div>
+
+<script>
+const D={B:8,KB:8*1024,MB:8*1024**2,GB:8*1024**3,TB:8*1024**4,b:1,Kb:1024,Mb:1024**2,Gb:1024**3,Tb:1024**4},
+S={bps:1,Kbps:1024,Mbps:1024**2,Gbps:1024**3,Bps:8,KBps:8*1024,MBps:8*1024**2,TBps:8*1024**3,T1:1.544*1024**2,e10:10*1024**2,e100:100*1024**2,gige:1000*1024**2},
+T={ns:1e-9,ms:1e-3,s:1,m:60,h:3600,d:86400,w:604800,y:31536000};
+const a=()=>['data','speed','time'].map(n=>document.querySelector(`input[name="${n}"]:checked`)?.value);
+const show=()=>{document.querySelectorAll('tr').forEach(r=>r.classList.remove('active'));document.querySelectorAll('input[type="radio"]:checked').forEach(r=>r.closest('tr').classList.add('active'));};
+const fmt=v=>v.toFixed(6).replace(/\.?0+$/,'')||'0';
+const u=()=>{const [d,s,t]=a();if(!d||!s||!t)return;const di=+document.querySelector(`#data tr[data-u="${d}"] .i input`).value||0,si=+document.querySelector(`#speed tr[data-u="${s}"] .i input`).value||0,ti=+document.querySelector(`#time tr[data-u="${t}"] .i input`).value||0;let bits=0,bps=0,sec=0;if(di&&si){bits=di*D[d];bps=si*S[s];sec=bits/bps}else if(di&&ti){bits=di*D[d];sec=ti*T[t];bps=bits/sec}else if(si&&ti){bps=si*S[s];sec=ti*T[t];bits=bps*sec}else return;Object.keys(D).forEach(k=>document.getElementById('v'+k).textContent=fmt(bits/D[k]));Object.keys(S).forEach(k=>document.getElementById('v'+k).textContent=fmt(bps/S[k]));Object.keys(T).forEach(k=>document.getElementById('v'+k).textContent=fmt(sec/T[k]));};
+document.querySelectorAll('.i input').forEach(i=>i.oninput=u);
+document.querySelectorAll('input[type="radio"]').forEach(r=>r.onchange=()=>{show();u();});
+document.getElementById('r').onclick=()=>{document.querySelectorAll('.i input').forEach(i=>i.value='');document.querySelectorAll('.v').forEach(v=>v.textContent='');show();};
+window.onload=()=>{document.querySelector('input[value="MB"]').checked=document.querySelector('input[value="Mbps"]').checked=document.querySelector('input[value="s"]').checked=true;show();};
+</script>
+</body></html>
