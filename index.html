@@ -1,92 +1,1239 @@
 <!DOCTYPE html>
-<html><head>
-<meta charset="utf-8"><title>Bandwidth Calc</title>
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{font:13px system-ui;background:#f8f9fa;color:#212529;padding:1rem}
-.c{max-width:1000px;margin:auto;display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
-.d{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 4px 12px #0001;border:1px solid #dee2e6}
-h2{background:#0066cc;color:#fff;padding:.75rem 1rem;font:600 1rem/1 system-ui;text-align:center}
-table{width:100%;border-collapse:collapse}
-td{padding:.5rem .75rem;border-bottom:1px solid #eee}
-label{display:flex;align-items:center;gap:.5rem;cursor:pointer;font-size:.95rem}
-input[type=radio]{accent-color:#0066cc;transform:scale(1.1)}
-input[type=number]{width:85px;padding:.4rem .6rem;border:1px solid #ccc;border-radius:8px;font:400 .95rem/1 monospace;text-align:right;background:#fff}
-input[type=number]:focus{border-color:#0066cc;outline:none;box-shadow:0 0 0 3px #0066cc33}
-.v{font:600 .95rem/1 'JetBrains Mono',monospace;color:#0066cc;min-width:85px;text-align:right}
-.u{font-size:.85rem;color:#555;flex:1}
-.i{display:none}
-.active .i{display:inline-block}
-.b{grid-column:1/-1;text-align:center;margin-top:.5rem}
-button{padding:.6rem 1.5rem;margin:0 .5rem;border:none;border-radius:8px;background:#0066cc;color:#fff;font-weight:600;cursor:pointer;transition:.2s}
-button:hover{background:#0052a3;transform:translateY(-1px)}
-@media(prefers-color-scheme:dark){
-  body{background:#121212;color:#e9ecef}
-  .d{background:#1e1e1e;border-color:#333}
-  input[type=number]{background:#2d2d2d;color:#e9ecef;border-color:#444}
-  .u{color:#aaa}
-}
-</style>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@600&display=swap" rel="stylesheet">
-</head><body>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Professional bandwidth, data transfer speed, and time calculator">
 
-<div class="c">
+  <title>Bandwidth Calculator</title>
 
-<div class="d"><h2>DATA</h2><table id="data"><tbody>
-<tr data-u="B"><td><label><input type="radio" name="data" value="B"><span class="v" id="vB"></span><span class="u">B bytes</span><span class="i"><input type="number" step="any"></span></label></td></tr>
-<tr data-u="KB"><td><label><input type="radio" name="data" value="KB"><span class="v" id="vKB"></span><span class="u">KB kilobytes</span><span class="i"><input type="number" step="any"></span></label></td></tr>
-<tr data-u="MB"><td><label><input type="radio" name="data" value="MB"><span class="v" id="vMB"></span><span class="u">MB megabytes</span><span class="i"><input type="number" step="any"></span></label></td></tr>
-<tr data-u="GB"><td><label><input type="radio" name="data" value="GB"><span class="v" id="vGB"></span><span class="u">GB gigabytes</span><span class="i"><input type="number" step="any"></span></label></td></tr>
-<tr data-u="TB"><td><label><input type="radio" name="data" value="TB"><span class="v" id="vTB"></span><span class="u">TB terabytes</span><span class="i"><input type="number" step="any"></span></label></td></tr>
-<tr data-u="b"><td><label><input type="radio" name="data" value="b"><span class="v" id="vb"></span><span class="u">b bits</span><span class="i"><input type="number" step="any"></span></label></td></tr>
-<tr data-u="Kb"><td><label><input type="radio" name="data" value="Kb"><span class="v" id="vKb"></span><span class="u">Kb kilobits</span><span class="i"><input type="number" step="any"></span></label></td></tr>
-<tr data-u="Mb"><td><label><input type="radio" name="data" value="Mb"><span class="v" id="vMb"></span><span class="u">Mb megabits</span><span class="i"><input type="number" step="any"></span></label></td></tr>
-<tr data-u="Gb"><td><label><input type="radio" name="data" value="Gb"><span class="v" id="vGb"></span><span class="u">Gb gigabits</span><span class="i"><input type="number" step="any"></span></label></td></tr>
-<tr data-u="Tb"><td><label><input type="radio" name="data" value="Tb"><span class="v" id="vTb"></span><span class="u">Tb terabits</span><span class="i"><input type="number" step="any"></span></label></td></tr>
-</tbody></table></div>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
+  <link
+    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
 
-<div class="d"><h2>SPEED</h2><table id="speed"><tbody>
-<tr data-u="bps"><td><label><input type="radio" name="speed" value="bps"><span class="v" id="vbps"></span><span class="u">bps bits per second</span><span class="i"><input type="number" step="any"></span></label></td></tr>
-<tr data-u="Kbps"><td><label><input type="radio" name="speed" value="Kbps"><span class="v" id="vKbps"></span><span class="u">Kbps kilobits per second</span><span class="i"><input type="number" step="any"></span></label></td></tr>
-<tr data-u="Mbps"><td><label><input type="radio" name="speed" value="Mbps"><span class="v" id="vMbps"></span><span class="u">Mbps megabits per second</span><span class="i"><input type="number" step="any"></span></label></td></tr>
-<tr data-u="Gbps"><td><label><input type="radio" name="speed" value="Gbps"><span class="v" id="vGbps"></span><span class="u">Gbps gigabits per second</span><span class="i"><input type="number" step="any"></span></label></td></tr>
-<tr data-u="Bps"><td><label><input type="radio" name="speed" value="Bps"><span class="v" id="vBps"></span><span class="u">Bps bytes per second</span><span class="i"><input type="number" step="any"></span></label></td></tr>
-<tr data-u="KBps"><td><label><input type="radio" name="speed" value="KBps"><span class="v" id="vKBps"></span><span class="u">KBps kilobytes per second</span><span class="i"><input type="number" step="any"></span></label></td></tr>
-<tr data-u="MBps"><td><label><input type="radio" name="speed" value="MBps"><span class="v" id="vMBps"></span><span class="u">MBps megabytes per second</span><span class="i"><input type="number" step="any"></span></label></td></tr>
-<tr data-u="TBps"><td><label><input type="radio" name="speed" value="TBps"><span class="v" id="vTBps"></span><span class="u">TBps terabytes per second</span><span class="i"><input type="number" step="any"></span></label></td></tr>
-<tr data-u="T1"><td><label><input type="radio" name="speed" value="T1"><span class="v" id="vT1"></span><span class="u">T1 (1.544 Mbps)</span><span class="i"><input type="number" step="any"></span></label></td></tr>
-<tr data-u="e10"><td><label><input type="radio" name="speed" value="e10"><span class="v" id="ve10"></span><span class="u">10Mbps ethernet</span><span class="i"><input type="number" step="any"></span></label></td></tr>
-<tr data-u="e100"><td><label><input type="radio" name="speed" value="e100"><span class="v" id="ve100"></span><span class="u">100Mbps ethernet</span><span class="i"><input type="number" step="any"></span></label></td></tr>
-<tr data-u="gige"><td><label><input type="radio" name="speed" value="gige"><span class="v" id="vgige"></span><span class="u">1Gbps ethernet</span><span class="i"><input type="number" step="any"></span></label></td></tr>
-</tbody></table></div>
+  <style>
+    :root {
+      --bg: #f1f5f9;
+      --surface: #ffffff;
+      --surface-hover: #f8fafc;
+      --surface-selected: #eff6ff;
 
-<div class="d"><h2>TIME</h2><table id="time"><tbody>
-<tr data-u="ns"><td><label><input type="radio" name="time" value="ns"><span class="v" id="vns"></span><span class="u">ns nanoseconds</span><span class="i"><input type="number" step="any"></span></label></td></tr>
-<tr data-u="ms"><td><label><input type="radio" name="time" value="ms"><span class="v" id="vms"></span><span class="u">ms milliseconds</span><span class="i"><input type="number" step="any"></span></label></td></tr>
-<tr data-u="s"><td><label><input type="radio" name="time" value="s"><span class="v" id="vs"></span><span class="u">s seconds</span><span class="i"><input type="number" step="any"></span></label></td></tr>
-<tr data-u="m"><td><label><input type="radio" name="time" value="m"><span class="v" id="vm"></span><span class="u">m minutes</span><span class="i"><input type="number" step="any"></span></label></td></tr>
-<tr data-u="h"><td><label><input type="radio" name="time" value="h"><span class="v" id="vh"></span><span class="u">h hours</span><span class="i"><input type="number" step="any"></span></label></td></tr>
-<tr data-u="d"><td><label><input type="radio" name="time" value="d"><span class="v" id="vd"></span><span class="u">d days</span><span class="i"><input type="number" step="any"></span></label></td></tr>
-<tr data-u="w"><td><label><input type="radio" name="time" value="w"><span class="v" id="vw"></span><span class="u">w weeks</span><span class="i"><input type="number" step="any"></span></label></td></tr>
-<tr data-u="y"><td><label><input type="radio" name="time" value="y"><span class="v" id="vy"></span><span class="u">y years</span><span class="i"><input type="number" step="any"></span></label></td></tr>
-</tbody></table></div>
+      --text: #0f172a;
+      --text-secondary: #475569;
+      --text-muted: #64748b;
 
-<div class="b"><button id="r">Reset</button></div>
+      --border: #e2e8f0;
+      --border-light: #f1f5f9;
 
-</div>
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --primary-soft: #dbeafe;
 
-<script>
-const D={B:8,KB:8*1024,MB:8*1024**2,GB:8*1024**3,TB:8*1024**4,b:1,Kb:1024,Mb:1024**2,Gb:1024**3,Tb:1024**4},
-S={bps:1,Kbps:1024,Mbps:1024**2,Gbps:1024**3,Bps:8,KBps:8*1024,MBps:8*1024**2,TBps:8*1024**3,T1:1.544*1024**2,e10:10*1024**2,e100:100*1024**2,gige:1000*1024**2},
-T={ns:1e-9,ms:1e-3,s:1,m:60,h:3600,d:86400,w:604800,y:31536000};
-const a=()=>['data','speed','time'].map(n=>document.querySelector(`input[name="${n}"]:checked`)?.value);
-const show=()=>{document.querySelectorAll('tr').forEach(r=>r.classList.remove('active'));document.querySelectorAll('input[type="radio"]:checked').forEach(r=>r.closest('tr').classList.add('active'));};
-const fmt=v=>v.toFixed(6).replace(/\.?0+$/,'')||'0';
-const u=()=>{const [d,s,t]=a();if(!d||!s||!t)return;const di=+document.querySelector(`#data tr[data-u="${d}"] .i input`).value||0,si=+document.querySelector(`#speed tr[data-u="${s}"] .i input`).value||0,ti=+document.querySelector(`#time tr[data-u="${t}"] .i input`).value||0;let bits=0,bps=0,sec=0;if(di&&si){bits=di*D[d];bps=si*S[s];sec=bits/bps}else if(di&&ti){bits=di*D[d];sec=ti*T[t];bps=bits/sec}else if(si&&ti){bps=si*S[s];sec=ti*T[t];bits=bps*sec}else return;Object.keys(D).forEach(k=>document.getElementById('v'+k).textContent=fmt(bits/D[k]));Object.keys(S).forEach(k=>document.getElementById('v'+k).textContent=fmt(bps/S[k]));Object.keys(T).forEach(k=>document.getElementById('v'+k).textContent=fmt(sec/T[k]));};
-document.querySelectorAll('.i input').forEach(i=>i.oninput=u);
-document.querySelectorAll('input[type="radio"]').forEach(r=>r.onchange=()=>{show();u();});
-document.getElementById('r').onclick=()=>{document.querySelectorAll('.i input').forEach(i=>i.value='');document.querySelectorAll('.v').forEach(v=>v.textContent='');show();};
-window.onload=()=>{document.querySelector('input[value="MB"]').checked=document.querySelector('input[value="Mbps"]').checked=document.querySelector('input[value="s"]').checked=true;show();};
-</script>
-</body></html>
+      --success: #059669;
+
+      --shadow-sm: 0 1px 2px rgb(15 23 42 / 4%);
+      --shadow-md: 0 4px 16px rgb(15 23 42 / 7%);
+
+      --radius-sm: 7px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
+
+      --content-width: 1280px;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      color-scheme: light;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+
+      background: var(--bg);
+      color: var(--text);
+
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", sans-serif;
+
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    .page {
+      width: min(var(--content-width), calc(100% - 32px));
+      margin: 0 auto;
+      padding: 40px 0 32px;
+    }
+
+    .page-header {
+      margin-bottom: 28px;
+    }
+
+    .page-header h1 {
+      margin: 0;
+
+      color: var(--text);
+
+      font-size: clamp(1.6rem, 3vw, 2rem);
+      font-weight: 700;
+      letter-spacing: -.03em;
+      line-height: 1.15;
+    }
+
+    .page-description {
+      max-width: 620px;
+      margin: 8px 0 0;
+
+      color: var(--text-secondary);
+      font-size: .95rem;
+    }
+
+    .calculator-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .calculator-card {
+      min-width: 0;
+      overflow: hidden;
+
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+
+      box-shadow: var(--shadow-md);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      min-height: 48px;
+      padding: 0 16px;
+
+      background: var(--surface);
+
+      border-bottom: 1px solid var(--border);
+    }
+
+    .card-title {
+      margin: 0;
+
+      color: var(--text);
+
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .card-badge {
+      padding: 3px 7px;
+
+      border: 1px solid var(--primary-soft);
+      border-radius: 5px;
+
+      background: #f8fbff;
+      color: var(--primary);
+
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+    }
+
+    .input-section {
+      padding: 18px 16px 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .input-wrapper {
+      position: relative;
+    }
+
+    .value-input {
+      width: 100%;
+      height: 58px;
+
+      padding: 0 14px;
+
+      border: 1px solid #cbd5e1;
+      border-radius: var(--radius-md);
+
+      background: #fff;
+      color: var(--text);
+
+      font-family: "JetBrains Mono", monospace;
+      font-size: 1.25rem;
+      font-weight: 600;
+
+      text-align: right;
+
+      outline: none;
+
+      transition:
+        border-color .15s ease,
+        box-shadow .15s ease,
+        background .15s ease;
+    }
+
+    .value-input::placeholder {
+      color: #94a3b8;
+      font-weight: 500;
+    }
+
+    .value-input:hover {
+      border-color: #94a3af;
+    }
+
+    .value-input:focus {
+      border-color: var(--primary);
+
+      box-shadow:
+        0 0 0 3px rgb(37 99 235 / 12%);
+    }
+
+    .selected-unit {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+
+      min-height: 24px;
+      margin-top: 7px;
+
+      color: var(--text-muted);
+
+      font-size: .75rem;
+      font-weight: 500;
+    }
+
+    .unit-list {
+      margin: 0;
+      padding: 6px 0;
+
+      list-style: none;
+    }
+
+    .unit-row {
+      position: relative;
+
+      margin: 2px 6px;
+
+      border-radius: 7px;
+
+      transition:
+        background .12s ease,
+        box-shadow .12s ease;
+    }
+
+    .unit-row:hover {
+      background: var(--surface-hover);
+    }
+
+    .unit-row:has(input:checked) {
+      background: var(--surface-selected);
+      box-shadow: inset 3px 0 0 var(--primary);
+    }
+
+    .unit-label {
+      display: grid;
+
+      /*
+        Left:
+        1. value
+        2. unit
+        3. description
+        4. radio
+      */
+      grid-template-columns:
+        minmax(0, 1fr)
+        48px
+        minmax(0, 90px)
+        22px;
+
+      align-items: center;
+      gap: 8px;
+
+      min-height: 38px;
+      padding: 5px 10px;
+
+      cursor: pointer;
+    }
+
+    .unit-value {
+      min-width: 0;
+
+      color: var(--primary);
+
+      font-family: "JetBrains Mono", monospace;
+      font-size: .78rem;
+      font-weight: 600;
+
+      text-align: left;
+      white-space: nowrap;
+
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .unit-row:has(input:checked) .unit-value {
+      color: var(--primary-dark);
+    }
+
+    .unit-code {
+      color: var(--text);
+
+      font-family: "JetBrains Mono", monospace;
+      font-size: .82rem;
+      font-weight: 700;
+
+      white-space: nowrap;
+    }
+
+    .unit-row:has(input:checked) .unit-code {
+      color: var(--primary);
+    }
+
+    .unit-description {
+      min-width: 0;
+
+      overflow: hidden;
+
+      color: var(--text-muted);
+
+      font-size: .78rem;
+
+      text-overflow: ellipsis;
+    }
+
+    .unit-label input[type="radio"] {
+      width: 15px;
+      height: 15px;
+
+      margin: 0;
+
+      justify-self: end;
+
+      accent-color: var(--primary);
+
+      cursor: pointer;
+    }
+
+    .controls {
+      display: flex;
+      justify-content: center;
+
+      margin-top: 20px;
+    }
+
+    .reset-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+
+      min-width: 110px;
+      min-height: 40px;
+
+      padding: 0 18px;
+
+      border: 1px solid #cbd5e1;
+      border-radius: var(--radius-md);
+
+      background: var(--surface);
+      color: var(--text-secondary);
+
+      font-size: .82rem;
+      font-weight: 600;
+
+      cursor: pointer;
+
+      transition:
+        background .15s ease,
+        border-color .15s ease,
+        color .15s ease,
+        transform .15s ease;
+    }
+
+    .reset-button:hover {
+      background: var(--surface-hover);
+      border-color: #94a3b8;
+      color: var(--text);
+      transform: translateY(-1px);
+    }
+
+    .reset-button:active {
+      transform: translateY(0);
+    }
+
+    .reset-button:focus-visible {
+      outline: 3px solid rgb(37 99 235 / 20%);
+      outline-offset: 2px;
+    }
+
+    .page-footer {
+      margin-top: 24px;
+
+      color: var(--text-muted);
+
+      font-size: .72rem;
+      text-align: center;
+    }
+
+    @media (max-width: 1000px) {
+
+      .calculator-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .calculator-card {
+        width: 100%;
+      }
+
+      .unit-label {
+        grid-template-columns:
+          minmax(0, 90px)
+          48px
+          minmax(0, 1fr)
+          22px;
+      }
+    }
+
+
+    @media (max-width: 520px) {
+
+      .page {
+        width: min(100% - 20px, var(--content-width));
+        padding-top: 24px;
+      }
+
+      .page-header {
+        margin-bottom: 20px;
+      }
+
+      .page-description {
+        font-size: .88rem;
+      }
+
+      .calculator-grid {
+        gap: 12px;
+      }
+
+      .card-header {
+        min-height: 44px;
+        padding: 0 14px;
+      }
+
+      .card-badge {
+        display: none;
+      }
+
+      .input-section {
+        padding: 14px;
+      }
+
+      .value-input {
+        height: 54px;
+        font-size: 1.1rem;
+      }
+
+      .unit-label {
+        grid-template-columns:
+          minmax(0, 72px)
+          40px
+          minmax(0, 1fr)
+          20px;
+
+        gap: 6px;
+
+        padding: 4px 8px;
+      }
+
+      .unit-code {
+        font-size: .78rem;
+      }
+
+      .unit-description {
+        font-size: .74rem;
+      }
+
+      .unit-value {
+        font-size: .72rem;
+      }
+
+      .unit-label input[type="radio"] {
+        width: 14px;
+        height: 14px;
+      }
+    }
+
+    @media (prefers-color-scheme: dark) {
+
+      :root {
+        color-scheme: dark;
+
+        --bg: #0b1120;
+        --surface: #111827;
+        --surface-hover: #182235;
+        --surface-selected: #10244a;
+
+        --text: #f1f5f9;
+        --text-secondary: #cbd5e1;
+        --text-muted: #94a3b8;
+
+        --border: #263244;
+        --border-light: #1e293b;
+
+        --primary: #60a5fa;
+        --primary-dark: #93c5fd;
+        --primary-soft: #1e3a5f;
+
+        --shadow-sm: 0 1px 2px rgb(0 0 0 / 20%);
+        --shadow-md: 0 4px 18px rgb(0 0 0 / 25%);
+      }
+
+      .card-badge {
+        background: #0f2038;
+      }
+
+      .value-input {
+        background: #0f172a;
+        border-color: #334155;
+        color: var(--text);
+      }
+
+      .value-input:hover {
+        border-color: #475569;
+      }
+
+      .value-input::placeholder {
+        color: #64748b;
+      }
+
+      .reset-button {
+        background: var(--surface);
+        border-color: #334155;
+        color: var(--text-secondary);
+      }
+
+      .reset-button:hover {
+        background: var(--surface-hover);
+        border-color: #475569;
+        color: var(--text);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        transition: none !important;
+        animation: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="page">
+
+    <header class="page-header">
+
+      <h1>Bandwidth Calculator</h1>
+
+      <p class="page-description">
+        Calculate data size, transfer speed, or transfer time.
+        Enter any two values to calculate the third.
+      </p>
+
+    </header>
+
+    <div class="calculator-grid">
+
+      <section class="calculator-card">
+
+        <header class="card-header">
+          <h2 class="card-title">Data</h2>
+          <span class="card-badge">Size</span>
+        </header>
+
+        <div class="input-section">
+
+          <div class="input-wrapper">
+
+            <input
+              class="value-input"
+              id="dataInput"
+              type="number"
+              step="any"
+              inputmode="decimal"
+              autocomplete="off"
+              placeholder="Enter value"
+              aria-label="Data value"
+            >
+
+          </div>
+
+          <div
+            class="selected-unit"
+            id="dataSelectedUnit"
+          >
+            MB megabytes
+          </div>
+
+        </div>
+
+        <ul class="unit-list" id="dataList"></ul>
+
+      </section>
+
+      <section class="calculator-card">
+
+        <header class="card-header">
+          <h2 class="card-title">Speed</h2>
+          <span class="card-badge">Rate</span>
+        </header>
+
+        <div class="input-section">
+
+          <div class="input-wrapper">
+
+            <input
+              class="value-input"
+              id="speedInput"
+              type="number"
+              step="any"
+              inputmode="decimal"
+              autocomplete="off"
+              placeholder="Enter value"
+              aria-label="Speed value"
+            >
+
+          </div>
+
+          <div
+            class="selected-unit"
+            id="speedSelectedUnit"
+          >
+            Mbps megabits per second
+          </div>
+
+        </div>
+
+        <ul class="unit-list" id="speedList"></ul>
+
+      </section>
+
+      <section class="calculator-card">
+
+        <header class="card-header">
+          <h2 class="card-title">Time</h2>
+          <span class="card-badge">Duration</span>
+        </header>
+
+        <div class="input-section">
+
+          <div class="input-wrapper">
+
+            <input
+              class="value-input"
+              id="timeInput"
+              type="number"
+              step="any"
+              inputmode="decimal"
+              autocomplete="off"
+              placeholder="Enter value"
+              aria-label="Time value"
+            >
+
+          </div>
+
+          <div
+            class="selected-unit"
+            id="timeSelectedUnit"
+          >
+            s seconds
+          </div>
+
+        </div>
+
+        <ul class="unit-list" id="timeList"></ul>
+
+      </section>
+
+    </div>
+
+    <div class="controls">
+
+      <button
+        class="reset-button"
+        id="resetButton"
+        type="button"
+      >
+        Reset
+      </button>
+
+    </div>
+
+  </main>
+
+
+  <script>
+
+    const UNITS = {
+
+      data: {
+        B: {
+          factor: 1,
+          name: "bytes"
+        },
+
+        KB: {
+          factor: 1024,
+          name: "kilobytes"
+        },
+
+        MB: {
+          factor: 1024 ** 2,
+          name: "megabytes"
+        },
+
+        GB: {
+          factor: 1024 ** 3,
+          name: "gigabytes"
+        },
+
+        TB: {
+          factor: 1024 ** 4,
+          name: "terabytes"
+        },
+
+        b: {
+          factor: 1 / 8,
+          name: "bits"
+        },
+
+        Kb: {
+          factor: 1024 / 8,
+          name: "kilobits"
+        },
+
+        Mb: {
+          factor: 1024 ** 2 / 8,
+          name: "megabits"
+        },
+
+        Gb: {
+          factor: 1024 ** 3 / 8,
+          name: "gigabits"
+        },
+
+        Tb: {
+          factor: 1024 ** 4 / 8,
+          name: "terabits"
+        }
+      },
+
+
+      speed: {
+        bps: {
+          factor: 1,
+          name: "bits per second"
+        },
+
+        Kbps: {
+          factor: 1024,
+          name: "kilobits per second"
+        },
+
+        Mbps: {
+          factor: 1024 ** 2,
+          name: "megabits per second"
+        },
+
+        Gbps: {
+          factor: 1024 ** 3,
+          name: "gigabits per second"
+        },
+
+        Bps: {
+          factor: 8,
+          name: "bytes per second"
+        },
+
+        KBps: {
+          factor: 8 * 1024,
+          name: "kilobytes per second"
+        },
+
+        MBps: {
+          factor: 8 * 1024 ** 2,
+          name: "megabytes per second"
+        },
+
+        TBps: {
+          factor: 8 * 1024 ** 3,
+          name: "terabytes per second"
+        }
+      },
+
+
+      time: {
+        ns: {
+          factor: 1e-9,
+          name: "nanoseconds"
+        },
+
+        ms: {
+          factor: 1e-3,
+          name: "milliseconds"
+        },
+
+        s: {
+          factor: 1,
+          name: "seconds"
+        },
+
+        m: {
+          factor: 60,
+          name: "minutes"
+        },
+
+        h: {
+          factor: 3600,
+          name: "hours"
+        },
+
+        d: {
+          factor: 86400,
+          name: "days"
+        },
+
+        w: {
+          factor: 604800,
+          name: "weeks"
+        },
+
+        y: {
+          factor: 31536000,
+          name: "years"
+        }
+      }
+
+    };
+
+    const DEFAULTS = {
+      data: "GB",
+      speed: "Gbps",
+      time: "m"
+    };
+
+    const inputs = {
+      data: document.getElementById("dataInput"),
+      speed: document.getElementById("speedInput"),
+      time: document.getElementById("timeInput")
+    };
+
+    const lists = {
+      data: document.getElementById("dataList"),
+      speed: document.getElementById("speedList"),
+      time: document.getElementById("timeList")
+    };
+
+    const selectedUnitLabels = {
+      data: document.getElementById("dataSelectedUnit"),
+      speed: document.getElementById("speedSelectedUnit"),
+      time: document.getElementById("timeSelectedUnit")
+    };
+
+    const formatNumber = value => {
+
+      if (!Number.isFinite(value)) {
+        return "";
+      }
+
+      const rounded = Number(value.toFixed(6));
+
+      return new Intl.NumberFormat("en-US", {
+        maximumFractionDigits: 6,
+        useGrouping: true
+      }).format(rounded);
+    };
+
+    const getSelectedUnit = type => {
+
+      return document.querySelector(
+        `input[name="${type}"]:checked`
+      )?.value;
+
+    };
+
+
+    const getSelectedUnits = () => {
+
+      return {
+        data: getSelectedUnit("data"),
+        speed: getSelectedUnit("speed"),
+        time: getSelectedUnit("time")
+      };
+
+    };
+
+
+    const updateSelectedUnitLabels = () => {
+
+      const selected = getSelectedUnits();
+
+      Object.entries(selected).forEach(
+        ([type, unit]) => {
+
+          if (!unit) {
+            return;
+          }
+
+          selectedUnitLabels[type].textContent =
+            `${unit} ${UNITS[type][unit].name}`;
+
+        }
+      );
+
+    };
+
+    const createUnitRow = (type, unit) => {
+
+      const definition = UNITS[type][unit];
+
+      const li = document.createElement("li");
+
+      li.className = "unit-row";
+      li.dataset.unit = unit;
+
+
+      li.innerHTML = `
+        <label class="unit-label">
+
+          <span
+            class="unit-value"
+            id="value-${type}-${unit}"
+          ></span>
+
+          <span class="unit-code">
+            ${unit}
+          </span>
+
+          <span class="unit-description">
+            ${definition.name}
+          </span>
+
+          <input
+            type="radio"
+            name="${type}"
+            value="${unit}"
+          >
+
+        </label>
+      `;
+
+      return li;
+    };
+
+
+    const buildUnitLists = () => {
+
+      Object.keys(UNITS).forEach(type => {
+
+        lists[type].innerHTML = "";
+
+        Object.keys(UNITS[type]).forEach(unit => {
+
+          lists[type].appendChild(
+            createUnitRow(type, unit)
+          );
+
+        });
+
+      });
+
+    };
+
+    const getInputValue = type => {
+
+      const value = Number(inputs[type].value);
+
+      return Number.isFinite(value) && value > 0
+        ? value
+        : 0;
+
+    };
+
+    const updateCalculator = () => {
+
+      const selected = getSelectedUnits();
+
+      if (
+        !selected.data ||
+        !selected.speed ||
+        !selected.time
+      ) {
+        return;
+      }
+
+      const dataValue = getInputValue("data");
+      const speedValue = getInputValue("speed");
+      const timeValue = getInputValue("time");
+
+      let bits = 0;
+      let bitsPerSecond = 0;
+      let seconds = 0;
+
+      if (dataValue && speedValue) {
+
+        bits =
+          dataValue *
+          UNITS.data[selected.data].factor;
+
+        bitsPerSecond =
+          speedValue *
+          UNITS.speed[selected.speed].factor;
+
+        seconds =
+          bits / bitsPerSecond;
+
+      }
+
+      else if (dataValue && timeValue) {
+
+        bits =
+          dataValue *
+          UNITS.data[selected.data].factor;
+
+        seconds =
+          timeValue *
+          UNITS.time[selected.time].factor;
+
+        bitsPerSecond =
+          bits / seconds;
+
+      }
+
+      else if (speedValue && timeValue) {
+
+        bitsPerSecond =
+          speedValue *
+          UNITS.speed[selected.speed].factor;
+
+        seconds =
+          timeValue *
+          UNITS.time[selected.time].factor;
+
+        bits =
+          bitsPerSecond *
+          seconds;
+
+      }
+
+
+      else {
+
+        clearResults();
+
+        return;
+
+      }
+
+
+      updateDataResults(bits);
+      updateSpeedResults(bitsPerSecond);
+      updateTimeResults(seconds);
+
+    };
+
+    const updateDataResults = bits => {
+
+      Object.entries(UNITS.data).forEach(
+        ([unit, definition]) => {
+
+          const element =
+            document.getElementById(
+              `value-data-${unit}`
+            );
+
+          element.textContent =
+            formatNumber(
+              bits / definition.factor
+            );
+
+        }
+      );
+
+    };
+
+
+    const updateSpeedResults = bitsPerSecond => {
+
+      Object.entries(UNITS.speed).forEach(
+        ([unit, definition]) => {
+
+          const element =
+            document.getElementById(
+              `value-speed-${unit}`
+            );
+
+          element.textContent =
+            formatNumber(
+              bitsPerSecond / definition.factor
+            );
+
+        }
+      );
+
+    };
+
+
+    const updateTimeResults = seconds => {
+
+      Object.entries(UNITS.time).forEach(
+        ([unit, definition]) => {
+
+          const element =
+            document.getElementById(
+              `value-time-${unit}`
+            );
+
+          element.textContent =
+            formatNumber(
+              seconds / definition.factor
+            );
+
+        }
+      );
+
+    };
+
+
+    const clearResults = () => {
+
+      document.querySelectorAll(".unit-value").forEach(
+        element => {
+          element.textContent = "";
+        }
+      );
+
+    };
+
+    const resetCalculator = () => {
+
+      inputs.data.value = "";
+      inputs.speed.value = "";
+      inputs.time.value = "";
+
+      document.querySelectorAll(
+        'input[type="radio"]'
+      ).forEach(input => {
+        input.checked = false;
+      });
+
+
+      Object.entries(DEFAULTS).forEach(
+        ([type, unit]) => {
+
+          const input = document.querySelector(
+            `input[name="${type}"][value="${unit}"]`
+          );
+
+          if (input) {
+            input.checked = true;
+          }
+
+        }
+      );
+
+
+      clearResults();
+      updateSelectedUnitLabels();
+
+      inputs.data.focus();
+
+    };
+
+    Object.values(inputs).forEach(input => {
+
+      input.addEventListener(
+        "input",
+        updateCalculator
+      );
+
+    });
+
+
+    document.addEventListener(
+      "change",
+      event => {
+
+        if (
+          event.target.matches(
+            'input[type="radio"]'
+          )
+        ) {
+
+          updateSelectedUnitLabels();
+          updateCalculator();
+
+        }
+
+      }
+    );
+
+
+    document.getElementById(
+      "resetButton"
+    ).addEventListener(
+      "click",
+      resetCalculator
+    );
+
+    buildUnitLists();
+
+    Object.entries(DEFAULTS).forEach(
+      ([type, unit]) => {
+
+        const input = document.querySelector(
+          `input[name="${type}"][value="${unit}"]`
+        );
+
+        if (input) {
+          input.checked = true;
+        }
+
+      }
+    );
+
+    updateSelectedUnitLabels();
+
+  </script>
+
+</body>
+</html>
